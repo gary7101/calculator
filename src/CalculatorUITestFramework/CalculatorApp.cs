@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium.Windows;
-
+using System;
 using System.Drawing;
 
 namespace CalculatorUITestFramework
@@ -26,6 +26,7 @@ namespace CalculatorUITestFramework
         public static string GetCalculatorHeaderText()
         {
             return Header.Text;
+
         }
 
         ///// <summary>
@@ -72,6 +73,26 @@ namespace CalculatorUITestFramework
                 //give window time to render new size
                 System.Threading.Thread.Sleep(10);
                 GrowWindowToShowDock(width + 100);
+            }
+        }
+        public static void ChangeMode(string mode)
+        {
+            switch (mode.ToLower())
+            {
+                case "standard":
+                    Window.SendKeys(Keys.Alt + "1" + Keys.Alt);
+                    break;
+                case "scientific":
+                    Window.SendKeys(Keys.Alt + "2" + Keys.Alt);
+                    break;
+                case "programmer":
+                    Window.SendKeys(Keys.Alt + "4" + Keys.Alt);
+                    break;
+                case "date":
+                    Window.SendKeys(Keys.Alt + "5" + Keys.Alt);
+                    break;
+                default:
+                    throw new ArgumentException("Invalid mode specified");
             }
         }
     }
